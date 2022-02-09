@@ -345,7 +345,7 @@ img.emoji {
 .elementor-counter .elementor-counter-number-wrapper{display:-webkit-box;display:-ms-flexbox;display:flex;font-size:69px;font-weight:600;line-height:1}.elementor-counter .elementor-counter-number-prefix,.elementor-counter .elementor-counter-number-suffix{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;white-space:pre-wrap}.elementor-counter .elementor-counter-number-prefix{text-align:right}.elementor-counter .elementor-counter-number-suffix{text-align:left}.elementor-counter .elementor-counter-title{text-align:center;font-size:19px;font-weight:400;line-height:2.5}</style>		<div class="elementor-counter">
 			<div class="elementor-counter-number-wrapper">
 				<span class="elementor-counter-number-prefix"></span>
-				<span class="elementor-counter-number" data-duration="2000" data-to-value="69" data-from-value="0">0</span>
+				<span class="elementor-counter-number counter-value" data-duration="2000" data-to-value="69" data-from-value="0">69</span>
 				<span class="elementor-counter-number-suffix"></span>
 			</div>
 							<div class="elementor-counter-title">funny number</div>
@@ -361,7 +361,7 @@ img.emoji {
 					<div class="elementor-counter">
 			<div class="elementor-counter-number-wrapper">
 				<span class="elementor-counter-number-prefix"></span>
-				<span class="elementor-counter-number" data-duration="2000" data-to-value="420" data-from-value="0">0</span>
+				<span class="elementor-counter-number counter-value" data-duration="2000" data-to-value="420" data-from-value="0">420</span>
 				<span class="elementor-counter-number-suffix"></span>
 			</div>
 							<div class="elementor-counter-title">blaze it</div>
@@ -377,7 +377,7 @@ img.emoji {
 					<div class="elementor-counter">
 			<div class="elementor-counter-number-wrapper">
 				<span class="elementor-counter-number-prefix"></span>
-				<span class="elementor-counter-number" data-duration="2000" data-to-value="100" data-from-value="0">0</span>
+				<span class="elementor-counter-number counter-value" data-duration="2000" data-to-value="100" data-from-value="0">100</span>
 				<span class="elementor-counter-number-suffix"></span>
 			</div>
 							<div class="elementor-counter-title">perfect</div>
@@ -559,6 +559,34 @@ var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false
 <script type="text/javascript" src="https://8ko.github.io/labyrinth-project/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=3.5.5" id="elementor-frontend-js"></script>
 	<script>
 		/(trident|msie)/i.test(navigator.userAgent)&&document.getElementById&&window.addEventListener&&window.addEventListener("hashchange",function(){var t,e=location.hash.substring(1);/^[A-z0-9_-]+$/.test(e)&&(t=document.getElementById(e))&&(/^(?:a|select|input|button|textarea)$/i.test(t.tagName)||(t.tabIndex=-1),t.focus())},!1);
+	</script>
+	<script>
+		var a = 0;
+		$(window).scroll(function() {
+		var oTop = $('#counter').offset().top - window.innerHeight;
+		if (a == 0 && $(window).scrollTop() > oTop) {
+			$('.counter-value').each(function() {
+			var $this = $(this),
+				countTo = $this.attr('data-count');
+			$({
+				countNum: $this.text()
+			}).animate({
+				countNum: countTo
+				},
+				{
+				duration: 2000,
+				easing: 'swing',
+				step: function() {
+					$this.text(Math.floor(this.countNum));
+				},
+				complete: function() {
+					$this.text(this.countNum);
+				}
+				});
+			});
+			a = 1;
+		}
+		});
 	</script>
 	</body>
 </html>
